@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS Cloud - Directory</title>
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-color: #e0e0e0;
+            --accent-color: #3d5afe;
+            --hover-color: #2a2a2a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--card-bg);
+            margin-bottom: 20px;
+        }
+
+        h1 { margin: 0; font-size: 24px; color: var(--accent-color); }
+        p { opacity: 0.7; font-size: 14px; }
+
+        #file-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .file-item {
+            background: var(--card-bg);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .file-item:hover {
+            background: var(--hover-color);
+            transform: translateX(5px);
+        }
+
+        .file-info { display: flex; align-items: center; }
+        .file-icon { margin-right: 15px; font-size: 20px; }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-style: italic;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>RS Cloud Directory</h1>
+    </header>
+
+    <div id="loading" class="loading">Fetching files...</div>
+    <div id="file-list"></div>
+</div>
+
+<script>
+    // --- अपनी डिटेल्स यहाँ भरें ---
+    const username = 'rs-181'; 
+    const repo = 'rscloud'; // यहाँ अपने Repository का नाम लिखें
+
+    async function fetchFiles() {
+        const url = `https://api.github.com/repos/${username}/${repo}/contents/`;
+        
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            document.getElementById('loading').style.display = 'none';
+            const listElement = document.getElementById('file-list');
+
+            data.forEach(file => {
+                // index.html को खुद लिस्ट में न दिखाने के लिए
+                if (file.name === 'index.html') return;
+
+                const item = document.createElement('a');
+                item.className = 'file-item';
+                item.href = file.html_url;
+                item.target = '_blank';
+
+                // आइकन सेट करना (File vs Folder)
+                const icon = file.type === 'dir' ? '📁' : '📄';
+
+                item.innerHTML = `
+                    <div class="file-info">
+                        <span class="file-icon">${icon}</span>
+                        <span>${file.name}</span>
+                    </div>
+                    <span style="font-size: 12px; opacity: 0.5;">${(file.size / 1024).toFixed(1)} KB</span>
+                `;
+                listElement.appendChild(item);
+            });
+        } catch (error) {
+            document.getElementById('loading').innerHTML = "Error loading files. Check Repo name.";
+        }
+    }
+
+    fetchFiles();
+</script>
+
+</body>
+</html>
