@@ -3,71 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RS Cloud - Secure View</title>
+    <title>RS Secure Cloud</title>
     <style>
-        :root { --bg: #0a0a0a; --card: #161616; --accent: #2962ff; --text: #ffffff; }
-        body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; }
-        .container { max-width: 650px; margin: auto; }
-        header { text-align: center; border-bottom: 1px solid #222; margin-bottom: 20px; padding-bottom: 10px; }
-        .file-card {
-            background: var(--card); padding: 15px; margin: 10px 0;
-            border-radius: 12px; display: flex; justify-content: space-between;
-            align-items: center; border: 1px solid #1f1f1f;
+        :root {
+            --bg-color: #0b0b0b;
+            --card-bg: #161616;
+            --text-main: #ffffff;
+            --accent: #007bff;
         }
-        .file-link { color: var(--text); text-decoration: none; flex-grow: 1; font-weight: 500; }
-        .btn-open { background: var(--accent); color: white; padding: 6px 15px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: bold; }
-        .loading { text-align: center; opacity: 0.5; margin-top: 50px; }
+        body { background: var(--bg-color); color: var(--text-main); font-family: sans-serif; padding: 20px; }
+        .container { max-width: 700px; margin: auto; }
+        .file-card {
+            background: var(--card-bg);
+            padding: 15px;
+            margin: 8px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #222;
+        }
+        .file-link { color: var(--text-main); text-decoration: none; font-weight: 500; flex-grow: 1; }
+        .file-card:hover { border-color: var(--accent); background: #1f1f1f; }
+        .type-icon { margin-right: 12px; }
+        .btn-view { background: var(--accent); color: white; padding: 5px 12px; border-radius: 5px; font-size: 12px; text-decoration: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1 style="color: var(--accent); font-size: 24px; margin: 0;">RS Cloud Storage</h1>
-        <p style="font-size: 12px; opacity: 0.6;">Automated Secure File Access</p>
-    </header>
-    <div id="loading" class="loading">Fetching your files...</div>
-    <div id="file-list"></div>
+    <h2>RS Storage <span style="font-size: 12px; opacity: 0.5;">Private Access</span></h2>
+    <div id="list">Loading...</div>
 </div>
 
 <script>
     const user = 'rs-181';
-    const repo = 'rscloud';
+    const repo = 'rscloud'; // अपना Repo नाम यहाँ लिखें
 
     async function loadFiles() {
-        try {
-            const response = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/`);
-            const data = await response.json();
-            document.getElementById('loading').style.display = 'none';
-            const list = document.getElementById('file-list');
+        const res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/`);
+        const files = await res.json();
+        const list = document.getElementById('list');
+        list.innerHTML = '';
 
-            data.forEach(file => {
-                if (file.name === 'index.html' || file.name.startsWith('.')) return;
+        files.forEach(file => {
+            if (file.name === 'index.html' || file.name === '.git') return;
 
-                let finalUrl;
-                
-                // HTML फाइल्स को Website की तरह रेंडर करने के लिए HTMLPreview का इस्तेमाल
-                if (file.name.endsWith('.html')) {
-                    finalUrl = `https://htmlpreview.github.io/?https://github.com/${user}/${repo}/blob/main/${encodeURIComponent(file.name)}`;
-                } else {
-                    // बाकी फाइल्स (Images/Videos) के लिए डायरेक्ट डाउनलोड लिंक
-                    finalUrl = file.download_url;
-                }
+            let finalUrl = file.download_url;
+            
+            // अगर HTML फाइल है, तो उसे Code के बदले Website की तरह दिखाने के लिए githack का इस्तेमाल करें
+            if (file.name.endsWith('.html')) {
+                finalUrl = `https://raw.githack.com/${user}/${repo}/main/${file.name}`;
+            }
 
-                const card = document.createElement('div');
-                card.className = 'file-card';
-                card.innerHTML = `
-                    <div style="display:flex; align-items:center; flex-grow:1;">
-                        <span style="margin-right:12px;">${file.type === 'dir' ? '📁' : '📄'}</span>
-                        <a href="${finalUrl}" class="file-link" target="_blank">${file.name}</a>
-                    </div>
-                    <a href="${finalUrl}" class="btn-open" target="_blank">VIEW</a>
-                `;
-                list.appendChild(card);
-            });
-        } catch (e) {
-            document.getElementById('loading').innerText = "Failed to load files.";
-        }
+            const card = document.createElement('div');
+            card.className = 'file-card';
+            card.innerHTML = `
+                <div style="display:flex; align-items:center;">
+                    <span class="type-icon">${file.type === 'dir' ? '📁' : '📄'}</span>
+                    <a href="${finalUrl}" class="file-link" target="_blank">${file.name}</a>
+                </div>
+                <a href="${finalUrl}" class="btn-view" target="_blank">Open</a>
+            `;
+            list.appendChild(card);
+        });
     }
     loadFiles();
 </script>
