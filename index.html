@@ -1,75 +1,851 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="gu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RS Secure Cloud</title>
+    <title>પેજ નથી મળ્યું | અમૃતમ વોટર સપ્લાયસ</title>
+    <link rel="icon" type="image/jpg" href="https://amrutam-water.netlify.app/favicon.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
         :root {
-            --bg-color: #0b0b0b;
-            --card-bg: #161616;
-            --text-main: #ffffff;
-            --accent: #007bff;
+            --primary: #0a5eaa;
+            --primary-light: #3b82f6;
+            --gold: #f59e0b;
+            --dark: #111827;
+            --gray: #6b7280;
+            --light-bg: #f0f9ff;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --border: #e5e7eb;
+            --accent-green: #25D366;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
         }
-        body { background: var(--bg-color); color: var(--text-main); font-family: sans-serif; padding: 20px; }
-        .container { max-width: 700px; margin: auto; }
-        .file-card {
-            background: var(--card-bg);
-            padding: 15px;
-            margin: 8px 0;
-            border-radius: 10px;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ========== HEADER ========== */
+        .site-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #222;
         }
-        .file-link { color: var(--text-main); text-decoration: none; font-weight: 500; flex-grow: 1; }
-        .file-card:hover { border-color: var(--accent); background: #1f1f1f; }
-        .type-icon { margin-right: 12px; }
-        .btn-view { background: var(--accent); color: white; padding: 5px 12px; border-radius: 5px; font-size: 12px; text-decoration: none; }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .brand-logo .logo-icon {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 22px;
+        }
+        .brand-logo .brand-text h2 {
+            font-size: 20px; font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            line-height: 1.1;
+        }
+        .brand-logo .brand-text small {
+            font-size: 11px; color: var(--gray); font-weight: 500;
+        }
+        .header-actions { display: flex; gap: 16px; align-items: center; }
+        .header-phone {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--primary); font-weight: 600;
+            text-decoration: none; font-size: 15px; transition: color 0.3s;
+        }
+        .header-phone:hover { color: var(--primary-light); }
+        .header-phone i { font-size: 18px; }
+        .header-wa-btn {
+            display: flex; align-items: center; gap: 8px;
+            background: var(--accent-green); color: white;
+            padding: 10px 20px; border-radius: 50px;
+            text-decoration: none; font-weight: 600; font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(37,211,102,0.2);
+        }
+        .header-wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.3); }
+
+        @media (max-width: 600px) {
+            .header-wa-btn span { display: none; }
+            .header-wa-btn { padding: 10px 14px; border-radius: 50%; }
+            .brand-logo .brand-text h2 { font-size: 16px; }
+        }
+
+        /* ========== 404 SECTION ========== */
+        .notfound-main {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            padding: 40px 20px;
+        }
+        .notfound-card {
+            background: white; border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            padding: 60px 40px; max-width: 650px; width: 100%;
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .notfound-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--gold));
+        }
+
+        .water-drop-container {
+            position: relative; width: 100px; height: 100px;
+            margin: 0 auto 30px;
+        }
+        .water-drop {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%;
+            margin: 0 auto;
+            display: flex; align-items: center; justify-content: center;
+            animation: dropFloat 3s ease-in-out infinite;
+            position: relative; cursor: pointer;
+        }
+        .water-drop i { font-size: 36px; color: white; }
+
+        @keyframes dropFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%; }
+            25% { border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%; }
+            50% { transform: translateY(-15px) rotate(3deg); border-radius: 45% 55% 50% 50% / 50% 45% 55% 50%; }
+            75% { border-radius: 55% 45% 50% 50% / 45% 50% 50% 55%; }
+        }
+
+        .drop-ripple {
+            position: absolute; width: 80px; height: 80px;
+            border: 2px solid rgba(59,130,246,0.3); border-radius: 50%;
+            animation: ripple 2s ease-out infinite;
+        }
+        .drop-ripple:nth-child(2) { animation-delay: 0.6s; }
+        .drop-ripple:nth-child(3) { animation-delay: 1.2s; }
+
+        @keyframes ripple {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .error-code {
+            font-size: 100px; font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            line-height: 1; margin-bottom: 10px; user-select: none; cursor: pointer;
+        }
+        .error-title { font-size: 28px; font-weight: 700; color: var(--dark); margin-bottom: 12px; }
+        .error-description {
+            font-size: 16px; color: var(--gray); line-height: 1.7;
+            margin-bottom: 30px; max-width: 450px; margin-left: auto; margin-right: auto;
+        }
+        .error-description strong { color: var(--primary); }
+
+        .suggestions {
+            display: flex; flex-wrap: wrap; gap: 12px;
+            justify-content: center; margin-bottom: 30px;
+        }
+        .suggestion-link {
+            display: flex; align-items: center; gap: 8px;
+            background: var(--light-bg); padding: 12px 20px; border-radius: 12px;
+            text-decoration: none; color: var(--text); font-weight: 500;
+            transition: all 0.3s; border: 1px solid transparent;
+        }
+        .suggestion-link:hover {
+            background: white; border-color: var(--primary-light); color: var(--primary);
+            transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .suggestion-link i { color: var(--primary-light); }
+
+        .home-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white; padding: 14px 36px; border-radius: 50px;
+            text-decoration: none; font-weight: 600; font-size: 16px;
+            transition: all 0.3s; box-shadow: 0 8px 25px rgba(10,94,170,0.25);
+        }
+        .home-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(10,94,170,0.35); }
+
+        /* ========== FOOTER ========== */
+        .site-footer {
+            background: var(--dark); color: #9ca3af;
+            padding: 20px 0; text-align: center; font-size: 14px;
+        }
+        .site-footer .footer-brand { color: var(--gold); font-weight: 600; }
+
+        /* ========== VAULT OVERLAY ========== */
+        .vault-overlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: #1a1a1a;
+            color: #e0e0e0; z-index: 9999; flex-direction: column; overflow: hidden;
+        }
+        .vault-overlay.active { display: flex; }
+
+        .vault-topbar {
+            background: #242424; padding: 12px 20px;
+            border-bottom: 1px solid #333;
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 12px;
+        }
+        .vault-topbar h3 { color: white; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+        .vault-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .vault-search {
+            background: #333; border: 1px solid #444; color: white;
+            padding: 8px 14px; border-radius: 8px; outline: none;
+            font-size: 13px; width: 180px;
+        }
+        .vault-search::placeholder { color: #888; }
+
+        .view-toggle { display: flex; background: #333; border-radius: 8px; overflow: hidden; }
+        .view-toggle button {
+            padding: 8px 14px; border: none; background: transparent;
+            color: #aaa; cursor: pointer; font-size: 13px; transition: 0.2s;
+        }
+        .view-toggle button.active { background: #58a6ff; color: white; }
+
+        .vault-exit {
+            background: #444; color: white; border: none;
+            padding: 8px 18px; border-radius: 8px; cursor: pointer;
+            font-size: 13px; transition: 0.2s;
+        }
+        .vault-exit:hover { background: #dc2626; }
+
+        /* 🚨 EMERGENCY EXIT BUTTON */
+        .emergency-exit {
+            background: var(--danger) !important;
+            color: white !important;
+            border: 2px solid #ff4444 !important;
+            padding: 10px 22px !important;
+            border-radius: 8px !important;
+            cursor: pointer !important;
+            font-size: 13px !important;
+            font-weight: 700 !important;
+            transition: all 0.3s !important;
+            animation: emergencyPulse 1.5s infinite !important;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .emergency-exit:hover {
+            background: #ff4444 !important;
+            transform: scale(1.05) !important;
+            box-shadow: 0 0 25px rgba(220,38,38,0.6) !important;
+        }
+
+        @keyframes emergencyPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.5); }
+            50% { box-shadow: 0 0 0 15px rgba(220,38,38,0); }
+        }
+
+        .loading-indicator {
+            text-align: center; padding: 60px; color: #888;
+        }
+        .loading-indicator i { font-size: 40px; animation: spin 1s linear infinite; }
+        .loading-indicator p { margin-top: 15px; }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .vault-grid-container {
+            flex: 1; overflow-y: auto; padding: 20px;
+            scrollbar-width: thin; scrollbar-color: #555 #1a1a1a;
+        }
+        .vault-grid-container::-webkit-scrollbar { width: 6px; }
+        .vault-grid-container::-webkit-scrollbar-track { background: #1a1a1a; }
+        .vault-grid-container::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .media-grid.list-layout { grid-template-columns: 1fr; }
+        .media-grid.masonry-layout { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+        .media-card {
+            background: #242424; border: 1px solid #333;
+            border-radius: 10px; overflow: hidden; cursor: pointer;
+            transition: all 0.3s; position: relative;
+        }
+        .media-card:hover {
+            border-color: #58a6ff;
+            box-shadow: 0 0 20px rgba(88,166,255,0.15);
+            transform: translateY(-2px);
+        }
+        .list-layout .media-card { display: flex; height: 80px; }
+
+        .media-preview {
+            width: 100%; height: 170px; background: #1e1e1e;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .media-preview img, .media-preview video {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .list-layout .media-preview { width: 80px; height: 80px; flex-shrink: 0; }
+        .masonry-layout .media-preview { height: auto; max-height: 300px; }
+        .masonry-layout .media-preview img { object-fit: contain; }
+        .media-preview .file-icon { font-size: 50px; color: #666; }
+
+        .play-badge {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); font-size: 36px;
+            color: white; background: rgba(0,0,0,0.6);
+            border-radius: 50%; width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            pointer-events: none;
+        }
+
+        .media-details { padding: 12px; }
+        .list-layout .media-details {
+            flex: 1; display: flex; align-items: center;
+            justify-content: space-between; padding: 0 20px;
+        }
+        .media-name {
+            font-size: 13px; font-weight: 500;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        .media-type-badge {
+            font-size: 10px; color: #888; text-transform: uppercase;
+            background: #333; padding: 2px 8px; border-radius: 4px;
+        }
+        .media-download {
+            background: #333; border: none; color: white;
+            padding: 5px 10px; border-radius: 5px; cursor: pointer;
+            font-size: 11px; margin-top: 6px; transition: 0.2s;
+            text-decoration: none; display: inline-block;
+        }
+        .media-download:hover { background: #58a6ff; }
+
+        .error-msg {
+            text-align: center; padding: 40px; color: #ff6b6b;
+        }
+
+        /* Lightbox */
+        .lightbox-modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            z-index: 99999; align-items: center; justify-content: center;
+        }
+        .lightbox-modal.active { display: flex; }
+        .lightbox-modal .close-lightbox {
+            position: absolute; top: 20px; right: 25px;
+            background: none; border: none; color: white;
+            font-size: 36px; cursor: pointer; z-index: 10;
+        }
+        .lightbox-modal .nav-lightbox {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.15); border: none; color: white;
+            font-size: 36px; padding: 20px 12px; cursor: pointer;
+            border-radius: 6px; transition: 0.2s;
+        }
+        .lightbox-modal .nav-lightbox:hover { background: rgba(255,255,255,0.3); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-modal img {
+            max-width: 90%; max-height: 85vh;
+            object-fit: contain; border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .notfound-card { padding: 40px 24px; }
+            .error-code { font-size: 70px; }
+            .error-title { font-size: 22px; }
+            .suggestions { flex-direction: column; }
+            .vault-topbar { flex-direction: column; align-items: flex-start; }
+            .vault-search { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>RS Storage <span style="font-size: 12px; opacity: 0.5;">Private Access</span></h2>
-    <div id="list">Loading...</div>
-</div>
-
-<script>
-    const user = 'rs-181';
-    const repo = 'rscloud'; // अपना Repo नाम यहाँ लिखें
-
-    async function loadFiles() {
-        const res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/`);
-        const files = await res.json();
-        const list = document.getElementById('list');
-        list.innerHTML = '';
-
-        files.forEach(file => {
-            if (file.name === 'index.html' || file.name === '.git') return;
-
-            let finalUrl = file.download_url;
-            
-            // अगर HTML फाइल है, तो उसे Code के बदले Website की तरह दिखाने के लिए githack का इस्तेमाल करें
-            if (file.name.endsWith('.html')) {
-                finalUrl = `https://raw.githack.com/${user}/${repo}/main/${file.name}`;
-            }
-
-            const card = document.createElement('div');
-            card.className = 'file-card';
-            card.innerHTML = `
-                <div style="display:flex; align-items:center;">
-                    <span class="type-icon">${file.type === 'dir' ? '📁' : '📄'}</span>
-                    <a href="${finalUrl}" class="file-link" target="_blank">${file.name}</a>
+    <!-- ==================== PUBLIC 404 PAGE ==================== -->
+    
+    <header class="site-header">
+        <div class="header-container">
+            <a href="https://amrutam-water.netlify.app" class="brand-logo">
+                <div class="logo-icon"><i class="fas fa-tint"></i></div>
+                <div class="brand-text">
+                    <h2>અમૃતમ વોટર</h2>
+                    <small>૧૬ વર્ષનો વિશ્વાસ | મોરબી</small>
                 </div>
-                <a href="${finalUrl}" class="btn-view" target="_blank">Open</a>
-            `;
-            list.appendChild(card);
-        });
-    }
-    loadFiles();
-</script>
+            </a>
+            <div class="header-actions">
+                <a href="tel:+919537906611" class="header-phone">
+                    <i class="fas fa-phone-alt"></i> <span>+91 95379 06611</span>
+                </a>
+                <a href="https://wa.me/919537906611" class="header-wa-btn">
+                    <i class="fab fa-whatsapp"></i> <span>ઓર્ડર કરો</span>
+                </a>
+            </div>
+        </div>
+    </header>
 
+    <main class="notfound-main">
+        <div class="notfound-card">
+            <div class="water-drop-container">
+                <div class="drop-ripple"></div>
+                <div class="drop-ripple"></div>
+                <div class="drop-ripple"></div>
+                <div class="water-drop" id="triggerDrop">
+                    <i class="fas fa-tint"></i>
+                </div>
+            </div>
+
+            <div class="error-code" id="trigger404">404</div>
+            <h1 class="error-title">પ્રોડક્ટ નથી મળ્યું</h1>
+            <p class="error-description">
+                માફ કરશો, તમે જે <strong>પ્રોડક્ટ</strong> અથવા <strong>પેજ</strong> શોધી રહ્યા છો તે હાલમાં ઉપલબ્ધ નથી.
+            </p>
+
+            <div class="suggestions">
+                <a href="https://amrutam-water.netlify.app" class="suggestion-link">
+                    <i class="fas fa-home"></i> હોમ પેજ
+                </a>
+                <a href="https://amrutam-water.netlify.app/#products" class="suggestion-link">
+                    <i class="fas fa-box"></i> ઉત્પાદનો
+                </a>
+                <a href="https://wa.me/919537906611" class="suggestion-link">
+                    <i class="fab fa-whatsapp"></i> સપોર્ટ
+                </a>
+            </div>
+
+            <a href="https://amrutam-water.netlify.app" class="home-btn">
+                <i class="fas fa-arrow-left"></i> હોમ પેજ પર જાઓ
+            </a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 <span class="footer-brand">અમૃતમ વોટર સપ્લાયસ</span> | મોરબી, ગુજરાત</p>
+        <p style="margin-top: 4px;">"અમૃતમ ના પાણી માં અમૃત નો એહસાસ" ✨</p>
+    </footer>
+
+    <!-- ==================== HIDDEN MEDIA VAULT ==================== -->
+    <div class="vault-overlay" id="vaultOverlay">
+        <div class="vault-topbar">
+            <h3>🔒 <span style="color: #58a6ff;">Secret Vault</span></h3>
+            <div class="vault-controls">
+                <input type="text" class="vault-search" id="vaultSearch" placeholder="🔍 ફાઇલ શોધો...">
+                <div class="view-toggle">
+                    <button class="active" data-view="grid">Grid</button>
+                    <button data-view="list">List</button>
+                    <button data-view="masonry">Masonry</button>
+                </div>
+                <!-- 🚨 EMERGENCY EXIT -->
+                <a href="https://amrutam-water.netlify.app" class="emergency-exit" title="તરત જ સાઇટ પર જાઓ">
+                    🚨 EXIT
+                </a>
+                <button class="vault-exit" id="vaultExitBtn">✕ Close</button>
+            </div>
+        </div>
+        <div class="vault-grid-container" id="vaultContent">
+            <div class="loading-indicator">
+                <i class="fas fa-spinner"></i>
+                <p>Loading files from repository...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <button class="close-lightbox" id="lightboxCloseBtn">&times;</button>
+        <button class="nav-lightbox lightbox-prev" id="lightboxPrevBtn">‹</button>
+        <button class="nav-lightbox lightbox-next" id="lightboxNextBtn">›</button>
+        <img id="lightboxImage" src="" alt="Preview">
+    </div>
+
+    <script>
+    (function() {
+        // ============ CONFIGURATION ============
+        const GITHUB_USERNAME = 'rs-181';
+        const GITHUB_REPO = 'rscloud';  // ⚠️ Apne actual repo name se replace karein
+        const PASSWORD_FILE = 'sys_config.dat';   // Password file ka naam
+        const PASSWORD_MODE = 'plain';            // 'plain' or 'hash'
+        const SAFE_SITE = 'https://amrutam-water.netlify.app';
+        
+        // ============ STATE ============
+        let isVaultActive = false;
+        let currentViewMode = 'grid';
+        let allMediaFiles = [];
+        let filteredFiles = [];
+        let lightboxIndex = 0;
+        let mediaRawUrls = {};  // Cache raw URLs
+        
+        // ============ FILE TYPE DETECTION ============
+        function detectFileType(filename) {
+            const ext = filename.toLowerCase().split('.').pop();
+            const imageExts = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'ico'];
+            const videoExts = ['mp4', 'webm', 'mov', 'avi', 'mkv'];
+            const audioExts = ['mp3', 'wav', 'ogg', 'flac', 'aac', 'm4a'];
+            const docExts = ['pdf', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'csv', 'md'];
+            
+            if (imageExts.includes(ext)) return 'image';
+            if (videoExts.includes(ext)) return 'video';
+            if (audioExts.includes(ext)) return 'audio';
+            if (docExts.includes(ext)) return 'document';
+            return 'other';
+        }
+        
+        // ============ FETCH REPO FILES VIA GITHUB API ============
+        async function fetchRepoContents(path = '') {
+            const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${path}`;
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                let files = [];
+                
+                for (const item of data) {
+                    // Skip hidden files, password file, and HTML files
+                    if (item.name.startsWith('.') || 
+                        item.name === PASSWORD_FILE ||
+                        item.name === 'CNAME' ||
+                        item.name === '_redirects' ||
+                        item.name === 'robots.txt' ||
+                        item.name === 'README.md') {
+                        continue;
+                    }
+                    
+                    if (item.type === 'file') {
+                        const fileType = detectFileType(item.name);
+                        if (fileType !== 'other' || item.name.match(/\.(pdf|txt|doc|docx|xls|xlsx|ppt|pptx|csv|md)$/i)) {
+                            files.push({
+                                name: item.name,
+                                path: item.path,
+                                type: fileType,
+                                download_url: item.download_url,
+                                size: item.size
+                            });
+                            
+                            // Cache raw URLs for images
+                            if (fileType === 'image' || fileType === 'video') {
+                                mediaRawUrls[item.name] = item.download_url;
+                            }
+                        }
+                    } else if (item.type === 'dir') {
+                        // Recursively fetch subdirectories
+                        const subFiles = await fetchRepoContents(item.path);
+                        files = files.concat(subFiles);
+                    }
+                }
+                
+                return files;
+            } catch (error) {
+                console.error('Failed to fetch repo contents:', error);
+                throw error;
+            }
+        }
+        
+        // ============ SHA-256 HASHING ============
+        async function sha256(text) {
+            const buf = new TextEncoder().encode(text);
+            const hash = await crypto.subtle.digest('SHA-256', buf);
+            return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+        
+        // ============ PASSWORD VERIFICATION ============
+        async function verifyPassword(input) {
+            try {
+                const res = await fetch(PASSWORD_FILE);
+                if (!res.ok) return false;
+                const stored = (await res.text()).trim();
+                
+                if (PASSWORD_MODE === 'hash') {
+                    return await sha256(input) === stored;
+                }
+                return input === stored;
+            } catch (e) {
+                return false;
+            }
+        }
+        
+        // ============ RENDER VAULT GALLERY ============
+        function renderVault(filterText = '') {
+            filteredFiles = allMediaFiles.filter(f =>
+                f.name.toLowerCase().includes(filterText.toLowerCase())
+            );
+            
+            const container = document.getElementById('vaultContent');
+            
+            if (filteredFiles.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:60px;color:#888;">📭 કોઈ ફાઇલ નથી મળી</div>';
+                return;
+            }
+            
+            let gridClass = 'media-grid';
+            if (currentViewMode === 'list') gridClass += ' list-layout';
+            if (currentViewMode === 'masonry') gridClass += ' masonry-layout';
+            
+            let html = `<div class="${gridClass}">`;
+            
+            filteredFiles.forEach((file, i) => {
+                const url = file.download_url;
+                let preview = '';
+                let badge = '';
+                
+                if (file.type === 'image') {
+                    preview = `<img src="${url}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'file-icon\\'>🖼️</div>'">`;
+                } else if (file.type === 'video') {
+                    preview = `<video muted preload="metadata"><source src="${url}"></video>`;
+                    badge = '<div class="play-badge">▶</div>';
+                } else if (file.type === 'audio') {
+                    preview = '<div class="file-icon">🎵</div>';
+                } else {
+                    preview = '<div class="file-icon">📄</div>';
+                }
+                
+                html += `
+                    <div class="media-card" data-index="${i}" data-type="${file.type}" data-url="${url}">
+                        <div class="media-preview">${preview}</div>
+                        ${badge}
+                        <div class="media-details">
+                            <div class="media-name" title="${file.name}">${file.name}</div>
+                            <div class="media-type-badge">${file.type}</div>
+                            <a href="${url}" download class="media-download" onclick="event.stopPropagation();">⬇ Download</a>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+            
+            // Attach click handlers
+            container.querySelectorAll('.media-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('media-download')) return;
+                    const idx = parseInt(this.dataset.index);
+                    openMediaItem(idx);
+                });
+            });
+        }
+        
+        function openMediaItem(idx) {
+            const file = filteredFiles[idx];
+            if (!file) return;
+            lightboxIndex = idx;
+            
+            if (file.type === 'image') {
+                document.getElementById('lightboxImage').src = file.download_url;
+                document.getElementById('lightboxModal').classList.add('active');
+            } else {
+                window.open(file.download_url, '_blank');
+            }
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.remove('active');
+            document.getElementById('lightboxImage').src = '';
+        }
+        
+        function navLightbox(dir) {
+            if (filteredFiles.length === 0) return;
+            // Find only image files for lightbox navigation
+            const imageFiles = filteredFiles.filter(f => f.type === 'image');
+            if (imageFiles.length === 0) {
+                closeLightbox();
+                return;
+            }
+            
+            const currentFile = filteredFiles[lightboxIndex];
+            const currentImageIndex = imageFiles.findIndex(f => f.name === currentFile.name);
+            
+            let newIndex;
+            if (currentImageIndex === -1) {
+                newIndex = dir > 0 ? 0 : imageFiles.length - 1;
+            } else {
+                newIndex = (currentImageIndex + dir + imageFiles.length) % imageFiles.length;
+            }
+            
+            const newFile = imageFiles[newIndex];
+            lightboxIndex = filteredFiles.findIndex(f => f.name === newFile.name);
+            document.getElementById('lightboxImage').src = newFile.download_url;
+        }
+        
+        // ============ AUTHENTICATION ============
+        function promptPassword() {
+            const pwd = prompt('Enter access key:');
+            if (!pwd || !pwd.trim()) return;
+            
+            verifyPassword(pwd.trim()).then(isValid => {
+                if (isValid) {
+                    activateVault();
+                }
+            });
+        }
+        
+        async function activateVault() {
+            isVaultActive = true;
+            document.getElementById('vaultOverlay').classList.add('active');
+            document.querySelector('.site-header').style.display = 'none';
+            document.querySelector('.site-footer').style.display = 'none';
+            
+            // Show loading
+            document.getElementById('vaultContent').innerHTML = `
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner"></i>
+                    <p>Loading files from repository...</p>
+                </div>
+            `;
+            
+            try {
+                allMediaFiles = await fetchRepoContents();
+                renderVault();
+            } catch (error) {
+                document.getElementById('vaultContent').innerHTML = `
+                    <div class="error-msg">
+                        <i class="fas fa-exclamation-triangle" style="font-size:40px;"></i>
+                        <p>Failed to load files. Please try again later.</p>
+                        <p style="font-size:12px;color:#888;">Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function deactivateVault() {
+            isVaultActive = false;
+            document.getElementById('vaultOverlay').classList.remove('active');
+            document.querySelector('.site-header').style.display = '';
+            document.querySelector('.site-footer').style.display = '';
+            document.getElementById('vaultContent').innerHTML = `
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner"></i>
+                    <p>Loading files from repository...</p>
+                </div>
+            `;
+            allMediaFiles = [];
+            filteredFiles = [];
+            closeLightbox();
+        }
+        
+        // ============ SECRET TRIGGERS ============
+        let tapCounter = 0;
+        let tapClock = null;
+        
+        function handleTap() {
+            tapCounter++;
+            if (tapCounter === 1) {
+                tapClock = setTimeout(() => { tapCounter = 0; }, 5000);
+            }
+            if (tapCounter >= 6) {
+                clearTimeout(tapClock);
+                tapCounter = 0;
+                if (!isVaultActive) promptPassword();
+            }
+        }
+        
+        document.getElementById('trigger404').addEventListener('click', handleTap);
+        document.getElementById('triggerDrop').addEventListener('click', handleTap);
+        
+        // Desktop: Ctrl+Shift+V
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && (e.key === 'V' || e.key === 'v')) {
+                e.preventDefault();
+                if (!isVaultActive) promptPassword();
+            }
+            
+            if (e.key === 'Escape') {
+                if (document.getElementById('lightboxModal').classList.contains('active')) {
+                    closeLightbox();
+                }
+            }
+            if (e.key === 'ArrowLeft' && document.getElementById('lightboxModal').classList.contains('active')) {
+                navLightbox(-1);
+            }
+            if (e.key === 'ArrowRight' && document.getElementById('lightboxModal').classList.contains('active')) {
+                navLightbox(1);
+            }
+        });
+        
+        // ============ VAULT UI EVENTS ============
+        document.getElementById('vaultExitBtn').addEventListener('click', deactivateVault);
+        
+        document.getElementById('vaultSearch').addEventListener('input', function(e) {
+            renderVault(e.target.value);
+        });
+        
+        document.querySelectorAll('.view-toggle button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentViewMode = this.dataset.view;
+                renderVault(document.getElementById('vaultSearch').value);
+            });
+        });
+        
+        document.getElementById('lightboxCloseBtn').addEventListener('click', closeLightbox);
+        document.getElementById('lightboxPrevBtn').addEventListener('click', () => navLightbox(-1));
+        document.getElementById('lightboxNextBtn').addEventListener('click', () => navLightbox(1));
+        
+        // Touch swipe for lightbox
+        let touchStart = 0;
+        document.getElementById('lightboxModal').addEventListener('touchstart', e => {
+            touchStart = e.changedTouches[0].screenX;
+        });
+        document.getElementById('lightboxModal').addEventListener('touchend', e => {
+            if (!document.getElementById('lightboxModal').classList.contains('active')) return;
+            const diff = e.changedTouches[0].screenX - touchStart;
+            if (Math.abs(diff) > 50) navLightbox(diff > 0 ? -1 : 1);
+        });
+        
+        // Lightbox click outside to close
+        document.getElementById('lightboxModal').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+        
+        // Console protection
+        setInterval(() => {
+            if (isVaultActive && console.clear) console.clear();
+        }, 500);
+        
+        // Right-click disabled in vault
+        document.addEventListener('contextmenu', e => {
+            if (isVaultActive) e.preventDefault();
+        });
+        
+        // DevTools shortcut prevention
+        document.addEventListener('keydown', function(e) {
+            if (isVaultActive && (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I'))) {
+                e.preventDefault();
+            }
+        });
+        
+    })();
+    </script>
 </body>
 </html>
